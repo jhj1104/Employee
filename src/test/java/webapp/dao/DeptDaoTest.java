@@ -1,19 +1,20 @@
 package webapp.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.junit.AfterClass;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import webapp.dao.DeptDao;
 import webapp.model.Dept;
 import webapp.model.Emp;
 
@@ -27,7 +28,7 @@ public class DeptDaoTest {
 	ApplicationContext factory;
 	
 	@Test
-	public void testSelectByDeptno() throws SQLException {
+	public void test1_SelectByDeptno() throws SQLException {
 		DeptDao dao = factory.getBean(DeptDao.class);
 		
 		Dept dept = dao.selectByDeptno(10);
@@ -40,7 +41,7 @@ public class DeptDaoTest {
 	}
 	
 	@Test
-	public void testSelectByDeptnoWithEmps() throws SQLException {
+	public void test2_SelectByDeptnoWithEmps() throws SQLException {
 		DeptDao dao = factory.getBean(DeptDao.class);
 		
 		Dept dept = dao.selectByDeptnoWithEmps(10);
@@ -54,6 +55,20 @@ public class DeptDaoTest {
 		for (Emp e : dept.getEmps()) {
 			log.info(e.getEmpno() + " " + e.getEname());			
 		}
+	}
+	
+	@Test
+	public void test3_SelectAll() {
+		DeptDao dao = factory.getBean(DeptDao.class);
+		
+		List<Dept> list = dao.selectAll();
+		assertNotNull(list);
+		
+		for (Dept d : list) {
+			log.info(d.getDeptno() + " " + d.getDname() + " " + d.getLoc());
+		}
+		
+		
 	}
 
 }

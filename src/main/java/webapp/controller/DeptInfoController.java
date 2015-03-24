@@ -35,6 +35,7 @@ public class DeptInfoController extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
     
+    
     ApplicationContext factory;
         
     @Override
